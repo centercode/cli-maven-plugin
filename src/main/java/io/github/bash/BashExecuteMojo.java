@@ -36,9 +36,9 @@ public class BashExecuteMojo extends AbstractMojo {
             List<String> list = new LinkedList<>();
             getEnv(list, project, "project");
             String[] env = list.toArray(new String[0]);
-            for (String s : env) {
-                System.out.println("env:" + s);
-            }
+//            for (String s : env) {
+//                System.out.println("env:" + s);
+//            }
             Process process = Runtime.getRuntime().exec(file, env);
             int exitCode = process.waitFor();
             String stdout = toString(process.getInputStream());
@@ -62,7 +62,7 @@ public class BashExecuteMojo extends AbstractMojo {
                     && method.getParameterCount() == 0
                     && !blacklist.contains(methodName)) {
                 String key = prefix + "_" + toLowerCaseFirstOne(methodName.substring(3, methodName.length()));
-                System.out.println(key);
+//                System.out.println(key);
                 Object val = method.invoke(obj);
                 if (null != val) {
                     if (method.getReturnType().equals(String.class)) {
