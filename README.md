@@ -257,6 +257,6 @@ project_file_usableSpace
 运行:
 
 ```
-mvn install bash:exec
+mvn bash:exec
 ```
 
