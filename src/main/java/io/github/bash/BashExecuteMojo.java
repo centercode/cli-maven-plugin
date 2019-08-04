@@ -20,13 +20,13 @@ public class BashExecuteMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
 
-    @Parameter(property = Constant.EXEC_GOAL + ".file")
-    private String file;
+    @Parameter(property = Constant.EXEC_GOAL + ".commands", required = true, readonly = true)
+    private List<String> commands;
 
     private Set<String> blacklist = new HashSet<>();
 
     {
-        String[] arr = {"getParentFile", "getAbsoluteFile", "getCanonicalFile","getParentPath", "getAbsolutePath", "getCanonicalPath", "getProjectBuildingRequest", "getExecutionProject"};
+        String[] arr = {"getParentFile", "getAbsoluteFile", "getCanonicalFile", "getParentPath", "getAbsolutePath", "getCanonicalPath", "getProjectBuildingRequest", "getExecutionProject"};
         blacklist.addAll(Arrays.asList(arr));
     }
 
@@ -36,25 +36,33 @@ public class BashExecuteMojo extends AbstractMojo {
             List<String> list = new LinkedList<>();
             getEnv(list, project, "project");
             String[] env = list.toArray(new String[0]);
-//            for (String s : env) {
-//                System.out.println("env:" + s);
-//            }
-            Process process = Runtime.getRuntime().exec(file, env);
-            int exitCode = process.waitFor();
-            String stdout = toString(process.getInputStream());
-            System.out.println(stdout);
-            if (0 != exitCode) {
-                String stderr = toString(process.getErrorStream());
-                throw new MojoExecutionException(stderr);
+            for (String s : env) {
+                getLog().debug("env:" + s);
+            }
+            System.out.println(commands);
+            for (String command : commands) {
+                executeCommand(command, env);
             }
         } catch (IOException | InterruptedException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-            throw new MojoExecutionException(e.getMessage());
+            throw new MojoExecutionException(e.getMessage(), e);
         }
     }
 
-    private void getEnv(List<String> list, Object obj, String prefix) throws InvocationTargetException, IllegalAccessException {
-        Class<?> clazz = obj.getClass();
+    private void executeCommand(String command, String[] env) throws MojoExecutionException, InterruptedException, IOException {
+        getLog().info("Executing commands:" + command);
+        Process process = Runtime.getRuntime().exec(command, env);
+        int exitCode = process.waitFor();
+        String stdout = toString(process.getInputStream());
+        System.out.println(stdout);
+        if (exitCode != 0) {
+            String stderr = toString(process.getErrorStream());
+            throw new MojoExecutionException(stderr);
+        }
+
+    }
+
+    private void getEnv(List<String> list, Object node, String prefix) throws InvocationTargetException, IllegalAccessException {
+        Class<?> clazz = node.getClass();
         for (Method method : clazz.getDeclaredMethods()) {
             String methodName = method.getName();
             if (methodName.startsWith("get")
@@ -62,8 +70,8 @@ public class BashExecuteMojo extends AbstractMojo {
                     && method.getParameterCount() == 0
                     && !blacklist.contains(methodName)) {
                 String key = prefix + "_" + toLowerCaseFirstOne(methodName.substring(3, methodName.length()));
-//                System.out.println(key);
-                Object val = method.invoke(obj);
+//                getLog().info(key);
+                Object val = method.invoke(node);
                 if (null != val) {
                     if (method.getReturnType().equals(String.class)) {
                         list.add(key + "=" + val);
@@ -75,11 +83,11 @@ public class BashExecuteMojo extends AbstractMojo {
         }
     }
 
-    public static String toLowerCaseFirstOne(String s) {
+    private static String toLowerCaseFirstOne(String s) {
         if (Character.isLowerCase(s.charAt(0)))
             return s;
         else
-            return (new StringBuilder()).append(Character.toLowerCase(s.charAt(0))).append(s.substring(1)).toString();
+            return Character.toLowerCase(s.charAt(0)) + s.substring(1);
     }
 
     private String toString(InputStream in) throws IOException {

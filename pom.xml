@@ -11,6 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <s>${project.artifactId}</s>
     </properties>
     <dependencies>
         <dependency>
@@ -69,16 +70,25 @@
                 <version>1.0.0</version>
                 <executions>
                     <execution>
-                        <id>exec</id>
+                        <id>for_debug</id>
                         <phase>install</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/foo.sh</file>
+                            <commands>
+                                <command>${basedir}/foo.sh a b c</command>
+                                <command>${basedir}/foo.sh def</command>
+                            </commands>
                         </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <commands>
+                        <command>${basedir}/foo.sh a b c</command>
+                        <command>${basedir}/foo.sh def</command>
+                    </commands>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -246,17 +246,39 @@ project_file_usableSpace
 	<artifactId>bash-maven-plugin</artifactId>
 	<version>1.0.0</version>
 	<configuration>
-		<!-- bash script to execute -->
-		<file>${basedir}/foo.sh</file>
+		<commands>
+			<command>${basedir}/foo.sh a b c</command>
+			<command>${basedir}/foo.sh def</command>
+		</commands>
 	</configuration>
 </plugin>
 ```
 
 ### Run
 
-运行:
+run:
+
+正常运行:
 
 ```
 mvn bash:exec
 ```
 
+print maven environment:
+
+打印maven变量:
+
+```
+mvn bash:exec --debug
+```
+
+maven environment output:
+
+maven变量输出:
+
+```
+[DEBUG] env:project_version=1.0.0
+[DEBUG] env:project_artifactId=bash-maven-plugin
+[DEBUG] env:project_basedir_name=bash-maven-plugin
+...
+```
