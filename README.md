@@ -1,10 +1,10 @@
-# Bash-maven-plugin
+# Cli-maven-plugin
 
 ### Introduction
 
-A maven plugin passing maven properties to bash script executing, support variables including but not limited to these:
+A maven plugin passing maven properties to cli script executing, support variables including but not limited to these:
 
-一个支持运行bash脚本的maven插件，可以将maven的变量传递到脚本的环境变量中，支持包括但不限于以下的maven变量：
+一个支持运行cli脚本的maven插件，可以将maven的变量传递到脚本的环境变量中，支持包括但不限于以下的maven变量：
 
 ```
 
@@ -243,7 +243,7 @@ project_file_usableSpace
 ```
 <plugin>
 	<groupId>io.github.yx91490</groupId>
-	<artifactId>bash-maven-plugin</artifactId>
+	<artifactId>cli-maven-plugin</artifactId>
 	<version>1.0.0</version>
 	<configuration>
 		<commands>
@@ -261,7 +261,7 @@ run:
 正常运行:
 
 ```
-mvn bash:exec
+mvn cli:exec
 ```
 
 print maven environment:
@@ -269,7 +269,7 @@ print maven environment:
 打印maven变量:
 
 ```
-mvn bash:exec --debug
+mvn cli:exec --debug
 ```
 
 maven environment output:
@@ -278,7 +278,7 @@ maven变量输出:
 
 ```
 [DEBUG] env:project_version=1.0.0
-[DEBUG] env:project_artifactId=bash-maven-plugin
-[DEBUG] env:project_basedir_name=bash-maven-plugin
+[DEBUG] env:project_artifactId=cli-maven-plugin
+[DEBUG] env:project_basedir_name=cli-maven-plugin
 ...
 ```
