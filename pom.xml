@@ -83,32 +83,41 @@
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>io.github.yx91490</groupId>
-                <artifactId>cli-maven-plugin</artifactId>
-                <version>1.0.0</version>
-                <executions>
-                    <execution>
-                        <id>for_debug</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <id>debug</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.github.yx91490</groupId>
+                        <artifactId>cli-maven-plugin</artifactId>
+                        <version>1.0.0</version>
+                        <executions>
+                            <execution>
+                                <id>debug</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <commands>
+                                        <command>${basedir}/foo.sh a b c</command>
+                                        <command>${basedir}/foo.sh def</command>
+                                    </commands>
+                                </configuration>
+                            </execution>
+                        </executions>
                         <configuration>
                             <commands>
                                 <command>${basedir}/foo.sh a b c</command>
                                 <command>${basedir}/foo.sh def</command>
                             </commands>
                         </configuration>
-                    </execution>
-                </executions>
-                <configuration>
-                    <commands>
-                        <command>${basedir}/foo.sh a b c</command>
-                        <command>${basedir}/foo.sh def</command>
-                    </commands>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
