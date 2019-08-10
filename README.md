@@ -247,6 +247,7 @@ project_file_usableSpace
 	<version>1.0.0</version>
 	<configuration>
 		<commands>
+		    <!-- 支持多条命令顺序执行 -->
 			<command>${basedir}/foo.sh a b c</command>
 			<command>${basedir}/foo.sh def</command>
 		</commands>
@@ -258,11 +259,13 @@ project_file_usableSpace
 
 run:
 
-正常运行:
+运行:
 
 ```
 mvn cli:exec
 ```
+
+### Debug
 
 print maven environment:
 
