@@ -1,4 +1,4 @@
-# Cli-maven-plugin
+# Cli-Maven-Plugin
 
 ### Introduction
 
@@ -7,44 +7,47 @@ A maven plugin passing maven properties to cli script executing, support variabl
 一个支持运行cli脚本的maven插件，可以将maven的变量传递到脚本的环境变量中，可以在脚本中引用包括但不限于以下的maven变量：
 
 ```
-project_groupId
-project_artifactId
-project_version
-project_packaging
-project_basedir
-project_build
-project_name
-project_resources
-project_parent
-project_properties
+$project_groupId
+$project_artifactId
+$project_version
+$project_packaging
+$project_basedir
+$project_build
+$project_name
+$project_resources
+$project_parent
+$project_properties
 ...
-```
-
-### POM Configuration
-
-配置项目的pom.xml文件：
-
-```
-<plugin>
-	<groupId>io.github.yx91490</groupId>
-	<artifactId>cli-maven-plugin</artifactId>
-	<version>1.0.0</version>
-	<configuration>
-		<commands>
-			<command>${basedir}/foo.sh a b c</command>
-		    <!-- 支持多条命令顺序执行 -->
-			<!-- <command>${basedir}/foo.sh d e f</command> -->
-		</commands>
-	</configuration>
-</plugin>
 ```
 
 ### Usage
 
-以linux环境示例:
+1.Configure pom.xml:
+
+1.配置项目的pom.xml文件：
+
+```
+<plugin>
+    <groupId>io.github.yx91490</groupId>
+    <artifactId>cli-maven-plugin</artifactId>
+    <version>1.0.0</version>
+    <configuration>
+        <commands>
+            <command>${basedir}/foo.sh a b c</command>
+            <!-- 支持多条命令顺序执行 -->
+            <!-- <command>${basedir}/foo.sh d e f</command> -->
+        </commands>
+    </configuration>
+</plugin>
+```
+
+2.execute(on linux):
+
+2.执行(以linux环境示例)：
 
 ```
 $ cat foo.sh
+
 #! /bin/bash
 echo "project: $project_artifactId"
 
@@ -78,9 +81,9 @@ print maven environment:
 mvn cli:exec --debug
 ```
 
-maven environment output:
+the maven environment output:
 
-maven变量输出:
+输出的maven变量:
 
 ```
 [DEBUG] env:project_version=1.0.0
