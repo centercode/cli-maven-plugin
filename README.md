@@ -24,13 +24,13 @@ $project_properties
 
 1.Configure pom.xml:
 
-1.配置项目的pom.xml文件：
+配置项目的pom.xml文件：
 
 ```
 <plugin>
-    <groupId>io.github.yx91490</groupId>
+    <groupId>io.github.centercode</groupId>
     <artifactId>cli-maven-plugin</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
     <configuration>
         <commands>
             <command>${basedir}/example.sh a b c</command>
@@ -41,17 +41,24 @@ $project_properties
 </plugin>
 ```
 
-2.execute(on linux):
+2.example(on linux):
 
-2.执行(以linux环境示例)：
+示例(以linux环境示例)：
 
-```
+```bash
 $ cat example.sh
 
 #! /bin/bash
 echo "Project:[${project_artifactId}], parameters:[${@}]"
+```
 
+Execute maven command:
+
+运行maven命令：
+
+```bash
 $ mvn cli:run
+
 [INFO] Scanning for projects...
 [INFO]
 [INFO] ------------------------------------------------------------------------
@@ -61,7 +68,7 @@ $ mvn cli:run
 [INFO] --- cli-maven-plugin:1.0.0:run (default-cli) @ cli-maven-plugin ---
 [/Users/user/cli-maven-plugin/example.sh]
 [INFO] Executing commands:/Users/user/cli-maven-plugin/example.sh
-Project:[cli-maven-plugin], parameters:[a b c]
+[INFO] Project:[cli-maven-plugin], parameters:[a b c]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
