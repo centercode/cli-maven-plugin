@@ -10,9 +10,9 @@
         <version>7</version>
     </parent>
 
-    <groupId>io.github.yx91490</groupId>
+    <groupId>io.github.centercode</groupId>
     <artifactId>cli-maven-plugin</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
     <packaging>maven-plugin</packaging>
 
     <licenses>
@@ -36,7 +36,6 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <s>${project.artifactId}</s>
     </properties>
 
     <dependencies>
@@ -99,7 +98,7 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>io.github.yx91490</groupId>
+                        <groupId>io.github.centercode</groupId>
                         <artifactId>cli-maven-plugin</artifactId>
                         <version>${project.version}</version>
                         <executions>

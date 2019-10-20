@@ -28,9 +28,9 @@ $project_properties
 
 ```
 <plugin>
-    <groupId>io.github.yx91490</groupId>
+    <groupId>io.github.centercode</groupId>
     <artifactId>cli-maven-plugin</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
     <configuration>
         <commands>
             <command>${basedir}/example.sh a b c</command>
@@ -61,7 +61,7 @@ $ mvn cli:run
 [INFO] --- cli-maven-plugin:1.0.0:run (default-cli) @ cli-maven-plugin ---
 [/Users/user/cli-maven-plugin/example.sh]
 [INFO] Executing commands:/Users/user/cli-maven-plugin/example.sh
-Project:[cli-maven-plugin], parameters:[a b c]
+[INFO] Project:[cli-maven-plugin], parameters:[a b c]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
