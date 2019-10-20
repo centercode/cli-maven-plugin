@@ -3,35 +3,42 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
         <version>7</version>
     </parent>
+
     <groupId>io.github.yx91490</groupId>
     <artifactId>cli-maven-plugin</artifactId>
     <version>1.0.0</version>
     <packaging>maven-plugin</packaging>
+
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
+
     <scm>
         <url>git@github.com:yx91490/cli-maven-plugin.git</url>
         <connection>scm:git:git@github.com:yx91490/cli-maven-plugin.git</connection>
     </scm>
+
     <developers>
         <developer>
             <name>yx91490</name>
             <email>yx91490@users.noreply.github.com</email>
         </developer>
     </developers>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <s>${project.artifactId}</s>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -85,36 +92,31 @@
             </plugin>
         </plugins>
     </build>
+
     <profiles>
         <profile>
-            <id>debug</id>
+            <id>dev</id>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>io.github.yx91490</groupId>
                         <artifactId>cli-maven-plugin</artifactId>
-                        <version>1.0.0</version>
+                        <version>${project.version}</version>
                         <executions>
                             <execution>
-                                <id>debug</id>
+                                <id>dev-install-then-run</id>
                                 <phase>install</phase>
                                 <goals>
-                                    <goal>exec</goal>
+                                    <goal>run</goal>
                                 </goals>
                                 <configuration>
                                     <commands>
-                                        <command>${basedir}/foo.sh a b c</command>
-                                        <command>${basedir}/foo.sh def</command>
+                                        <command>${basedir}/example.sh a b c</command>
+                                        <command>${basedir}/example.sh def</command>
                                     </commands>
                                 </configuration>
                             </execution>
                         </executions>
-                        <configuration>
-                            <commands>
-                                <command>${basedir}/foo.sh a b c</command>
-                                <command>${basedir}/foo.sh def</command>
-                            </commands>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>

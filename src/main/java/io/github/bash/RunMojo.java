@@ -14,13 +14,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
-@Mojo(name = Constant.EXEC_GOAL)
-public class ExecuteMojo extends AbstractMojo {
+@Mojo(name = Constant.GOAL_RUN)
+public class RunMojo extends AbstractMojo {
 
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
 
-    @Parameter(property = Constant.EXEC_GOAL + ".commands", required = true, readonly = true)
+    @Parameter(property = Constant.GOAL_RUN + ".commands", required = true, readonly = true)
     private List<String> commands;
 
     private Set<String> blacklist = new HashSet<>();
@@ -37,7 +37,7 @@ public class ExecuteMojo extends AbstractMojo {
             getEnv(list, project, "project");
             String[] env = list.toArray(new String[0]);
             for (String s : env) {
-                getLog().debug("env:" + s);
+                getLog().debug("[cli-maven-plugin] env: " + s);
             }
             System.out.println(commands);
             for (String command : commands) {

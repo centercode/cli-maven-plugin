@@ -33,9 +33,9 @@ $project_properties
     <version>1.0.0</version>
     <configuration>
         <commands>
-            <command>${basedir}/foo.sh a b c</command>
+            <command>${basedir}/example.sh a b c</command>
             <!-- 支持多条命令顺序执行 -->
-            <!-- <command>${basedir}/foo.sh d e f</command> -->
+            <!-- <command>${basedir}/example.sh d e f</command> -->
         </commands>
     </configuration>
 </plugin>
@@ -46,22 +46,22 @@ $project_properties
 2.执行(以linux环境示例)：
 
 ```
-$ cat foo.sh
+$ cat example.sh
 
 #! /bin/bash
-echo "project: $project_artifactId"
+echo "Project:[${project_artifactId}], parameters:[${@}]"
 
-$ mvn cli:exec
+$ mvn cli:run
 [INFO] Scanning for projects...
 [INFO]
 [INFO] ------------------------------------------------------------------------
 [INFO] Building cli-maven-plugin 1.0.0
 [INFO] ------------------------------------------------------------------------
 [INFO]
-[INFO] --- cli-maven-plugin:1.0.0:exec (default-cli) @ cli-maven-plugin ---
-[/Users/user/cli-maven-plugin/foo.sh]
-[INFO] Executing commands:/Users/user/cli-maven-plugin/foo.sh
-project: cli-maven-plugin
+[INFO] --- cli-maven-plugin:1.0.0:run (default-cli) @ cli-maven-plugin ---
+[/Users/user/cli-maven-plugin/example.sh]
+[INFO] Executing commands:/Users/user/cli-maven-plugin/example.sh
+Project:[cli-maven-plugin], parameters:[a b c]
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
@@ -78,7 +78,7 @@ print maven environment:
 打印maven变量:
 
 ```
-mvn cli:exec --debug
+mvn cli:run --debug
 ```
 
 the maven environment output:
@@ -86,8 +86,8 @@ the maven environment output:
 输出的maven变量:
 
 ```
-[DEBUG] env:project_version=1.0.0
-[DEBUG] env:project_artifactId=cli-maven-plugin
-[DEBUG] env:project_basedir_name=cli-maven-plugin
+[DEBUG][cli-maven-plugin] env: project_version=1.0.0
+[DEBUG][cli-maven-plugin] env: project_artifactId=cli-maven-plugin
+[DEBUG][cli-maven-plugin] env: project_basedir_name=cli-maven-plugin
 ...
 ```
