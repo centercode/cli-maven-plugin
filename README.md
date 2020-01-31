@@ -24,7 +24,7 @@ $project_properties
 
 1.Configure pom.xml:
 
-1.配置项目的pom.xml文件：
+配置项目的pom.xml文件：
 
 ```
 <plugin>
@@ -41,17 +41,24 @@ $project_properties
 </plugin>
 ```
 
-2.execute(on linux):
+2.example(on linux):
 
-2.执行(以linux环境示例)：
+示例(以linux环境示例)：
 
-```
+```bash
 $ cat example.sh
 
 #! /bin/bash
 echo "Project:[${project_artifactId}], parameters:[${@}]"
+```
 
+Execute maven command:
+
+运行maven命令：
+
+```bash
 $ mvn cli:run
+
 [INFO] Scanning for projects...
 [INFO]
 [INFO] ------------------------------------------------------------------------
