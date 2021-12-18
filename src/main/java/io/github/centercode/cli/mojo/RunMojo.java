@@ -42,12 +42,15 @@ public class RunMojo extends AbstractMojo {
                 String command = commands.get(i);
                 executeCommand(i, command, env);
             }
+        } catch (MojoExecutionException e) {
+            throw e;
         } catch (Exception e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }
     }
 
-    private void executeCommand(int index, String command, String[] env) throws Exception {
+    private void executeCommand(int index, String command, String[] env)
+            throws MojoExecutionException, InterruptedException, IOException {
         getLog().info("Executing command[" + index + "]:[" + command + "]");
         Process process = Runtime.getRuntime().exec(command, env);
         int exitCode = process.waitFor();
