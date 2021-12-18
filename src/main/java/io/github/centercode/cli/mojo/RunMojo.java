@@ -23,21 +23,16 @@ public class RunMojo extends AbstractMojo {
     @Parameter(property = Constant.GOAL_RUN + ".commands", required = true, readonly = true)
     private List<String> commands;
 
-    private Set<String> variableBlacklist = new HashSet<>();
-
-    {
-        String[] arr = {
-                "getParentFile",
-                "getAbsoluteFile",
-                "getCanonicalFile",
-                "getParentPath",
-                "getAbsolutePath",
-                "getCanonicalPath",
-                "getProjectBuildingRequest",
-                "getExecutionProject"
-        };
-        variableBlacklist.addAll(Arrays.asList(arr));
-    }
+    private final Set<String> variableBlacklist = new HashSet<>(Arrays.asList(
+            "getParentFile",
+            "getAbsoluteFile",
+            "getCanonicalFile",
+            "getParentPath",
+            "getAbsolutePath",
+            "getCanonicalPath",
+            "getProjectBuildingRequest",
+            "getExecutionProject"
+    ));
 
     @Override
     public void execute() throws MojoExecutionException {
