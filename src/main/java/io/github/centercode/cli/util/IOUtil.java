@@ -7,22 +7,22 @@ import java.io.InputStreamReader;
 
 public class IOUtil {
 
-  private IOUtil() {
-  }
-
-  public static String read(InputStream in) throws IOException {
-    StringBuilder sb = new StringBuilder();
-    try (InputStreamReader streamReader = new InputStreamReader(in);
-         BufferedReader reader = new BufferedReader(streamReader)) {
-      String line = reader.readLine();
-      if (line != null) {
-        sb.append(line);
-      }
-      while ((line = reader.readLine()) != null) {
-        sb.append('\n').append(line);
-      }
+    private IOUtil() {
     }
 
-    return sb.toString();
-  }
+    public static String read(InputStream in) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        try (InputStreamReader streamReader = new InputStreamReader(in);
+             BufferedReader reader = new BufferedReader(streamReader)) {
+            String line;
+            if ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+            while ((line = reader.readLine()) != null) {
+                sb.append('\n').append(line);
+            }
+        }
+
+        return sb.toString();
+    }
 }
