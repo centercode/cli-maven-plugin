@@ -103,15 +103,15 @@
                         <version>${project.version}</version>
                         <executions>
                             <execution>
-                                <id>dev-install-then-run</id>
+                                <id>install-then-run</id>
                                 <phase>install</phase>
                                 <goals>
                                     <goal>run</goal>
                                 </goals>
                                 <configuration>
                                     <commands>
-                                        <command>${basedir}/example.sh a b c</command>
-                                        <command>${basedir}/example.sh def</command>
+                                        <command>/bin/bash ${basedir}/example.sh a b c</command>
+                                        <command>/bin/bash ${basedir}/example.sh def</command>
                                     </commands>
                                 </configuration>
                             </execution>
