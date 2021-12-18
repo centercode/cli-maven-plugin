@@ -38,23 +38,27 @@ public class RunMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException {
         try {
             String[] env = getVariables();
-            for (String command : commands) {
-                executeCommand(command, env);
+            for (int i = 0; i < commands.size(); i++) {
+                String command = commands.get(i);
+                executeCommand(i, command, env);
             }
         } catch (Exception e) {
             throw new MojoExecutionException(e.getMessage(), e);
         }
     }
 
-    private void executeCommand(String command, String[] env) throws MojoExecutionException, InterruptedException, IOException {
-        getLog().info("Executing commands:" + command);
+    private void executeCommand(int index, String command, String[] env) throws Exception {
+        getLog().info("Executing command[" + index + "]:[" + command + "]");
         Process process = Runtime.getRuntime().exec(command, env);
         int exitCode = process.waitFor();
         String stdout = IOUtil.read(process.getInputStream());
-        getLog().info(stdout);
+        getLog().info("Output of command[" + index + "]:\n " + stdout);
+        String stderr = IOUtil.read(process.getErrorStream());
+        if (!stderr.isEmpty()) {
+            getLog().error("Error of command[" + index + "]:\n" + stderr);
+        }
         if (exitCode != 0) {
-            String stderr = IOUtil.read(process.getErrorStream());
-            throw new MojoExecutionException(stderr);
+            throw new MojoExecutionException("Command failed with exit code:" + exitCode);
         }
     }
 
